@@ -5,6 +5,7 @@ FROM alpine:3.8
 RUN apk add --no-cache \
   apache2 \
   php7-apache2 \
+  php7-session \
   php7-gd \
   php7-simplexml \
   php7-zlib \
@@ -12,7 +13,7 @@ RUN apk add --no-cache \
   php7-json
 
 # copy over some basic config
-COPY localhost.conf /etc/apache2/conf.d/localhost.conf
+COPY ./apache/localhost.conf /etc/apache2/conf.d/localhost.conf
 
 # make the run directory
 RUN mkdir -p /run/apache2/
