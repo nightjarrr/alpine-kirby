@@ -1,6 +1,12 @@
 # based on Alpine 3.8
 FROM alpine:3.8
 
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+RUN addgroup -g ${GROUP_ID} apache
+RUN adduser -S -u ${USER_ID} -G apache -h /var/www apache
+
 # add php 7 and apache
 RUN apk add --no-cache \
   apache2 \
