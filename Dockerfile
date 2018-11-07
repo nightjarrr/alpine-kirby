@@ -1,5 +1,5 @@
-# based on Alpine 3.6
-FROM alpine:3.6
+# based on Alpine 3.8
+FROM alpine:3.8
 
 # add php 7 and apache
 RUN apk add --no-cache \
@@ -15,9 +15,6 @@ RUN apk add --no-cache \
 
 # copy over some basic config
 COPY localhost.conf /etc/apache2/conf.d/localhost.conf
-
-# copy over a php info file
-COPY index.php /var/www/localhost/htdocs/index.php
 
 # make the run directory
 RUN mkdir -p /run/apache2/
