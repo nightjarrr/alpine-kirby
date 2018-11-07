@@ -7,8 +7,6 @@ RUN apk add --no-cache \
   php7-apache2 \
   php7-gd \
   php7-simplexml \
-  php7-redis \
-  php7-mysqli \
   php7-zlib \
   php7-mbstring \
   php7-json
@@ -22,6 +20,16 @@ RUN mkdir -p /run/apache2/
 # route logs to stdout and stderr
 RUN ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log
+
+# set working directory
+WORKDIR /var/www/localhost/htdocs/
+
+# copy kirby
+COPY ./kirby-starterkit /var/www/localhost/htdocs/
+
+# create thumbs folder and set permissions for kirby
+RUN chown -R apache:apache /var/www/localhost/htdocs/ \
+&& chmod -R 755 /var/www/localhost/htdocs/thumbs
 
 # run apache in foreground
 CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
